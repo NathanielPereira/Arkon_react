@@ -69,8 +69,8 @@ function Layout() {
         <Outlet />
       </main>
       <WhatsappFloatButton />
-      <footer className="w-full text-azulFuturo text-center py-6 mt-auto flex flex-col items-center gap-2" style={{ background: 'transparent' }}>
-        <span className="text-sm">© {new Date().getFullYear()} Arkon Tecnologia. Todos os direitos reservados.</span>
+      <footer className="w-full text-azulFuturo text-center py-12 mt-16 flex flex-col items-center gap-2" style={{ background: 'transparent' }}>
+        <span className="text-sm">© {new Date().getFullYear()} Arkon - Soluções Digitais. Todos os direitos reservados.</span>
       </footer>
     </div>
   );
