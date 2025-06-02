@@ -1,0 +1,40 @@
+name: Deploy Staging
+
+on:
+  push:
+    branches:
+      - staging
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: nathaniel-portfolio/package-lock.json
+          
+      - name: Install dependencies
+        run: |
+          cd nathaniel-portfolio
+          npm ci
+          
+      - name: Build project
+        run: |
+          cd nathaniel-portfolio
+          npm run build
+          
+      - name: Deploy to Firebase Staging
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ARKON_LAB }}'
+          projectId: arkon-lab
+          channelId: staging 
