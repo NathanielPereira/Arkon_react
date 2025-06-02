@@ -1,37 +1,6 @@
-import { useRef } from "react";
-
 const AZUL_ESCURO = "#0B2341";
 
-// Substitua pela URL do seu Apps Script do Google Sheets
-const GOOGLE_SHEETS_ENDPOINT = "https://script.google.com/macros/s/AKfycbyjxnUDUnnZVkSr0ydB7EzO6kQ4FONtbmHn0jBkGyw6vvhMngOrqjIbfEqnJgV_m6vG/exec";
-
 export default function Contato() {
-  const formRef = useRef(null);
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    // Envio para Google Sheets
-    const form = e.currentTarget;
-    const data = {
-      nome: (form.elements.namedItem('nome') as HTMLInputElement)?.value,
-      email: (form.elements.namedItem('email') as HTMLInputElement)?.value,
-      telefone: (form.elements.namedItem('telefone') as HTMLInputElement)?.value,
-      descricao: (form.elements.namedItem('descricao') as HTMLTextAreaElement)?.value,
-    };
-    try {
-      await fetch(GOOGLE_SHEETS_ENDPOINT, {
-        method: "POST",
-        mode: "no-cors",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-    } catch (err) {
-      // Silencia erros para não impactar o envio do e-mail
-    }
-    // O envio do e-mail será feito normalmente pelo FormSubmit
-  };
-
   return (
     <section className="min-h-screen flex flex-col items-center justify-center px-4 py-16 md:py-24 bg-transparent">
       <img src="/Arkon logo e nome.png" alt="Logo da Empresa" className="mb-8" style={{ maxWidth: 180, height: 'auto' }} />
