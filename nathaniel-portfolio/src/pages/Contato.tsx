@@ -1,8 +1,37 @@
-import { FaWhatsapp } from "react-icons/fa";
+import { useRef } from "react";
 
 const AZUL_ESCURO = "#0B2341";
 
+// Substitua pela URL do seu Apps Script do Google Sheets
+const GOOGLE_SHEETS_ENDPOINT = "https://script.google.com/macros/s/AKfycbyjxnUDUnnZVkSr0ydB7EzO6kQ4FONtbmHn0jBkGyw6vvhMngOrqjIbfEqnJgV_m6vG/exec";
+
 export default function Contato() {
+  const formRef = useRef(null);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    // Envio para Google Sheets
+    const form = e.currentTarget;
+    const data = {
+      nome: (form.elements.namedItem('nome') as HTMLInputElement)?.value,
+      email: (form.elements.namedItem('email') as HTMLInputElement)?.value,
+      telefone: (form.elements.namedItem('telefone') as HTMLInputElement)?.value,
+      descricao: (form.elements.namedItem('descricao') as HTMLTextAreaElement)?.value,
+    };
+    try {
+      await fetch(GOOGLE_SHEETS_ENDPOINT, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+    } catch (err) {
+      // Silencia erros para não impactar o envio do e-mail
+    }
+    // O envio do e-mail será feito normalmente pelo FormSubmit
+  };
+
   return (
     <section className="min-h-screen flex flex-col items-center justify-center px-4 py-16 md:py-24 bg-transparent">
       <img src="/Arkon logo e nome.png" alt="Logo da Empresa" className="mb-8" style={{ maxWidth: 180, height: 'auto' }} />
@@ -14,7 +43,14 @@ export default function Contato() {
             <p className="mb-2 font-semibold" style={{ color: AZUL_ESCURO }}>Vamos conversar sobre o futuro digital da sua empresa?</p>
             <p style={{ color: AZUL_ESCURO }}>Conte para nós seu desafio ou projeto. Nossa equipe está pronta para ouvir, entender e propor soluções que realmente façam a diferença para o seu negócio.</p>
           </div>
-          <form action="https://formsubmit.co/nathaniel@email.com" method="POST" className="w-full grid gap-6">
+          <form
+            ref={formRef}
+            action="https://formsubmit.co/arkonsuporte@gmail.com"
+            method="POST"
+            className="w-full grid gap-6"
+            onSubmit={handleSubmit}
+            target="_blank"
+          >
             <input type="text" name="nome" placeholder="Nome" required className="p-3 rounded border border-azulFuturo bg-white text-azulFuturo placeholder:text-azulFuturo/70 focus:ring-2 focus:ring-ciano transition-all duration-200" />
             <input type="email" name="email" placeholder="E-mail" required className="p-3 rounded border border-azulFuturo bg-white text-azulFuturo placeholder:text-azulFuturo/70 focus:ring-2 focus:ring-ciano transition-all duration-200" />
             <input type="tel" name="telefone" placeholder="Telefone" className="p-3 rounded border border-azulFuturo bg-white text-azulFuturo placeholder:text-azulFuturo/70 focus:ring-2 focus:ring-ciano transition-all duration-200" />

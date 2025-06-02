@@ -1,5 +1,3 @@
-import { FaWhatsapp } from "react-icons/fa";
-
 const AZUL_ESCURO = "#0B2341";
 
 export default function Home() {
