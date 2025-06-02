@@ -49,3 +49,31 @@
   opacity: 1 !important;
   animation: fadein 1s cubic-bezier(0.4,0,0.2,1) both;
 }
+
+/* Estilos para projetos */
+.project-card {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.project-card:hover {
+  transform: translateY(-10px);
+}
+
+.project-image {
+  transition: all 0.3s ease;
+}
+
+.project-overlay {
+  background: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.project-card:hover .project-overlay {
+  opacity: 1;
+}
+
+.project-card:hover .project-image {
+  transform: scale(1.1);
+}

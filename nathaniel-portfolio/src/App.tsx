@@ -5,6 +5,8 @@ import { useState, useEffect } from 'react';
 import Home from './pages/Home';
 import QuemSomos from './pages/QuemSomos';
 import Servicos from './pages/Servicos';
+import Planos from './pages/Planos';
+import Projetos from './pages/Projetos';
 import Contato from './pages/Contato';
 import WhatsappFloatButton from './components/ui/WhatsappFloatButton';
 
@@ -12,6 +14,8 @@ const MENU_SECTIONS = [
   { path: "/", label: "Home" },
   { path: "/quem-somos", label: "Quem Somos" },
   { path: "/servicos", label: "Serviços" },
+  { path: "/planos", label: "Planos" },
+  { path: "/projetos", label: "Projetos" },
   { path: "/contato", label: "Contato" },
 ];
 
@@ -84,6 +88,8 @@ export default function App() {
           <Route index element={<Home />} />
           <Route path="quem-somos" element={<QuemSomos />} />
           <Route path="servicos" element={<Servicos />} />
+          <Route path="planos" element={<Planos />} />
+          <Route path="projetos" element={<Projetos />} />
           <Route path="contato" element={<Contato />} />
         </Route>
       </Routes>
