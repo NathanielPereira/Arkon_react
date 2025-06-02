@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Routes, Route, Link, Outlet, useLocation } from "react-router-dom";
 import { Navbar, Nav, Container } from 'react-bootstrap';
+import { useState, useEffect } from 'react';
 import Home from './pages/Home';
 import QuemSomos from './pages/QuemSomos';
 import Servicos from './pages/Servicos';
@@ -16,8 +17,24 @@ const MENU_SECTIONS = [
 
 function BootstrapMenu() {
   const location = useLocation();
+  const [expanded, setExpanded] = useState(false);
+
+  // Fecha o menu automaticamente quando a rota muda
+  useEffect(() => {
+    setExpanded(false);
+  }, [location.pathname]);
+
   return (
-    <Navbar expand="md" bg="white" variant="light" fixed="top" className="shadow-sm py-1" style={{ background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(8px)', minHeight: 56 }}>
+    <Navbar 
+      expand="md" 
+      bg="white" 
+      variant="light" 
+      fixed="top" 
+      className="shadow-sm py-1" 
+      style={{ background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(8px)', minHeight: 56 }}
+      expanded={expanded}
+      onToggle={(expanded) => setExpanded(expanded)}
+    >
       <Container fluid className="px-3 md:px-5">
         <Navbar.Brand as={Link} to="/">
           <img src="/Arkon logo e nome.png" alt="Logo" style={{ maxWidth: 110, height: 'auto' }} />
@@ -32,6 +49,7 @@ function BootstrapMenu() {
                 key={s.path}
                 className={`fw-semibold px-3 rounded-pill transition-all ${location.pathname === s.path ? 'bg-primary text-white shadow-sm' : 'text-primary-emphasis hover:bg-primary-subtle'}`}
                 style={{ fontSize: '1.05rem', letterSpacing: 0.5 }}
+                onClick={() => setExpanded(false)}
               >
                 {s.label}
               </Nav.Link>
