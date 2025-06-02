@@ -3,7 +3,7 @@ import { FaWhatsapp } from "react-icons/fa";
 export default function WhatsappFloatButton() {
   return (
     <a
-      href="https://wa.me/5511999999999" // Substitua pelo número real
+      href="https://wa.me/5553991747024" // Número atualizado
       target="_blank"
       rel="noopener noreferrer"
       className="fixed z-50 bottom-6 right-6 bg-ciano hover:bg-azulFuturo text-black shadow-2xl rounded-full p-4 flex items-center justify-center transition-all duration-300 scale-100 hover:scale-110"
