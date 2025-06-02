@@ -11,22 +11,26 @@ export default function Home() {
           Somos especialistas em criar experiências digitais que conectam marcas e pessoas, fortalecendo sua presença no mercado e gerando resultados reais.
         </p>
       </div>
-      <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-3 gap-10 mt-2">
-        <div className="bg-white/70 rounded-2xl shadow-xl border border-azulClaro/40 p-8 flex flex-col items-center transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl">
-          <svg width="48" height="48" fill="none" stroke="#1A73E8" strokeWidth="2.5" viewBox="0 0 24 24" className="mb-6 drop-shadow-md"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/></svg>
+      <div className="w-full max-w-5xl flex flex-col items-center">
+        <div className="w-full h-[1.5px] bg-gray-200 my-12" />
+        <div className="bg-white/70 rounded-2xl shadow-xl border border-azulClaro/40 p-8 flex flex-col items-center transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl mb-8">
+          <svg width="48" height="48" fill="none" stroke="#1A73E8" strokeWidth="2.5" viewBox="0 0 24 24" className="mb-6 mt-4 drop-shadow-md"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/></svg>
           <h3 className="text-lg font-bold mb-2 text-azulFuturo">Soluções Sob Medida</h3>
           <p className="text-base text-center" style={{ color: AZUL_ESCURO }}>Desenvolvimento de sistemas, apps e sites personalizados para o seu negócio.</p>
         </div>
-        <div className="bg-white/70 rounded-2xl shadow-xl border border-azulClaro/40 p-8 flex flex-col items-center transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl">
-          <svg width="48" height="48" fill="none" stroke="#00C9A7" strokeWidth="2.5" viewBox="0 0 24 24" className="mb-6 drop-shadow-md"><rect x="2" y="6" width="20" height="12" rx="3"/><path d="M6 18v2"/><path d="M18 18v2"/></svg>
+        <div className="w-full h-[1.5px] bg-gray-200 my-12" />
+        <div className="bg-white/70 rounded-2xl shadow-xl border border-azulClaro/40 p-8 flex flex-col items-center transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl mb-8">
+          <svg width="48" height="48" fill="none" stroke="#00C9A7" strokeWidth="2.5" viewBox="0 0 24 24" className="mb-6 mt-4 drop-shadow-md"><rect x="2" y="6" width="20" height="12" rx="3"/><path d="M6 18v2"/><path d="M18 18v2"/></svg>
           <h3 className="text-lg font-bold mb-2 text-ciano">Atendimento Consultivo</h3>
           <p className="text-base" style={{ color: AZUL_ESCURO }}>Acompanhamento próximo, transparência e parceria em cada etapa do projeto.</p>
         </div>
-        <div className="bg-white/70 rounded-2xl shadow-xl border border-azulClaro/40 p-8 flex flex-col items-center transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl">
-          <svg width="48" height="48" fill="none" stroke="#2563EB" strokeWidth="2.5" viewBox="0 0 24 24" className="mb-6 drop-shadow-md"><path d="M6 6h15l-1.5 9h-13z"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg>
+        <div className="w-full h-[1.5px] bg-gray-200 my-12" />
+        <div className="bg-white/70 rounded-2xl shadow-xl border border-azulClaro/40 p-8 flex flex-col items-center transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl mb-8">
+          <svg width="48" height="48" fill="none" stroke="#2563EB" strokeWidth="2.5" viewBox="0 0 24 24" className="mb-6 mt-4 drop-shadow-md"><path d="M6 6h15l-1.5 9h-13z"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg>
           <h3 className="text-lg font-bold mb-2 text-azulRoyal">Design & Performance</h3>
           <p className="text-base" style={{ color: AZUL_ESCURO }}>Visual moderno, navegação intuitiva e foco total em resultados para sua empresa.</p>
         </div>
+        <div className="w-full h-[1.5px] bg-gray-200 my-12" />
       </div>
     </section>
   );
