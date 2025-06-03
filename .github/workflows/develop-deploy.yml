@@ -30,14 +30,10 @@ jobs:
         cd nathaniel-portfolio
         npm run build
         
-    - name: Setup Firebase CLI
-      uses: firebase-tools-action@v1.0.0
-      with:
-        token: ${{ secrets.FIREBASE_TOKEN }}
-        
     - name: Deploy para Development
-      run: |
-        cd nathaniel-portfolio
-        firebase hosting:channel:deploy dev --expires 30d
+      uses: w9jds/firebase-action@master
+      with:
+        args: hosting:channel:deploy dev --expires 30d --project arkon-lab
       env:
-        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }} 
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        PROJECT_PATH: nathaniel-portfolio 
