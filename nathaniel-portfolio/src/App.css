@@ -65,15 +65,16 @@
 }
 
 .project-overlay {
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(26, 115, 232, 0.8);
   opacity: 0;
   transition: all 0.3s ease;
 }
 
-.project-card:hover .project-overlay {
-  opacity: 1;
+/* Hover effects para projetos com nova estrutura */
+.group:hover .project-overlay {
+  opacity: 1 !important;
 }
 
-.project-card:hover .project-image {
+.group:hover .project-image {
   transform: scale(1.1);
 }

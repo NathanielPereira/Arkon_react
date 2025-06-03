@@ -8,7 +8,10 @@ import Servicos from './pages/Servicos';
 import Planos from './pages/Planos';
 import Projetos from './pages/Projetos';
 import Contato from './pages/Contato';
+import ImobiliariaDigital from './pages/ImobiliariaDigital';
+import AdvocaciaConsultoria from './pages/AdvocaciaConsultoria';
 import WhatsappFloatButton from './components/ui/WhatsappFloatButton';
+import Footer from './components/ui/Footer';
 
 const MENU_SECTIONS = [
   { path: "/", label: "Home" },
@@ -73,9 +76,7 @@ function Layout() {
         <Outlet />
       </main>
       <WhatsappFloatButton />
-      <footer className="w-full text-azulFuturo text-center py-12 mt-16 flex flex-col items-center gap-2" style={{ background: 'transparent' }}>
-        <span className="text-sm">© {new Date().getFullYear()} Arkon - Soluções Digitais. Todos os direitos reservados.</span>
-      </footer>
+      <Footer />
     </div>
   );
 }
@@ -91,6 +92,10 @@ export default function App() {
           <Route path="planos" element={<Planos />} />
           <Route path="projetos" element={<Projetos />} />
           <Route path="contato" element={<Contato />} />
+          
+          {/* Projetos Carro-Chefe */}
+          <Route path="projeto/imobiliaria-digital" element={<ImobiliariaDigital />} />
+          <Route path="projeto/advocacia-consultoria" element={<AdvocaciaConsultoria />} />
         </Route>
       </Routes>
     </Router>

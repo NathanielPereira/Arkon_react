@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Container, Row, Col, Card, Button, Badge, Modal, Nav } from 'react-bootstrap';
+import { Container, Row, Col, Button, Badge, Modal, Nav } from 'react-bootstrap';
 import { 
   FaExternalLinkAlt, 
   FaClock, 
@@ -11,10 +11,8 @@ import {
   FaDesktop,
   FaRocket,
   FaEye,
-  FaFilter,
   FaStar,
-  FaQuoteLeft,
-  FaArrowRight
+  FaQuoteLeft
 } from 'react-icons/fa';
 
 interface Project {
@@ -40,18 +38,42 @@ interface Project {
   featured?: boolean;
 }
 
+// Paleta de cores refinada seguindo design thinking
+const CORES_PRIMARIAS = {
+  azulPrincipal: "#1A73E8",      // Azul Google - confiabilidade e tecnologia
+  azulEscuro: "#0B2341",         // Azul naval - profissionalismo e estabilidade
+  azulClaro: "#E3F2FD",          // Azul claro - suavidade e modernidade
+  brancoPuro: "#FFFFFF",         // Branco - clareza e espaço
+  cinzaNeutro: "#6C757D"         // Cinza - textos secundários
+};
+
+const CORES_SECUNDARIAS = {
+  verdeForest: "#1B4F72",        // Verde escuro - sucesso e crescimento
+  verdeClaro: "#D5EDDA",         // Verde claro - highlights de sucesso
+  laranjaWarn: "#FF8C00",        // Laranja - CTAs e destaques importantes
+  roxoTech: "#6F42C1",           // Roxo - inovação e tecnologia
+  vermelhoCrit: "#DC3545",       // Vermelho - alertas e erros
+  ciano: "#00C9A7"               // Ciano - criatividade e inovação
+};
+
+const GRADIENTES = {
+  heroGradient: "linear-gradient(135deg, #1A73E8 0%, #0B2341 100%)",
+  cardGradient: "linear-gradient(145deg, #FFFFFF 0%, #F8F9FA 100%)",
+  hoverGradient: "linear-gradient(135deg, #E3F2FD 0%, #FFFFFF 100%)"
+};
+
 const Projetos: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [showModal, setShowModal] = useState(false);
 
   const categories = [
-    { id: 'all', name: 'Todos', icon: <FaGlobe /> },
-    { id: 'web', name: 'Sites Institucionais', icon: <FaDesktop /> },
-    { id: 'ecommerce', name: 'E-commerce', icon: <FaShoppingCart /> },
-    { id: 'mobile', name: 'Apps Mobile', icon: <FaMobile /> },
-    { id: 'landing', name: 'Landing Pages', icon: <FaRocket /> },
-    { id: 'sistema', name: 'Sistemas Web', icon: <FaCode /> }
+    { id: 'all', name: 'Todos', icon: <FaGlobe />, color: CORES_PRIMARIAS.azulPrincipal },
+    { id: 'web', name: 'Sites Institucionais', icon: <FaDesktop />, color: CORES_SECUNDARIAS.verdeForest },
+    { id: 'ecommerce', name: 'E-commerce', icon: <FaShoppingCart />, color: CORES_SECUNDARIAS.laranjaWarn },
+    { id: 'mobile', name: 'Apps Mobile', icon: <FaMobile />, color: CORES_SECUNDARIAS.roxoTech },
+    { id: 'landing', name: 'Landing Pages', icon: <FaRocket />, color: CORES_SECUNDARIAS.verdeForest },
+    { id: 'sistema', name: 'Sistemas Web', icon: <FaCode />, color: CORES_PRIMARIAS.azulPrincipal }
   ];
 
   const projects: Project[] = [
@@ -138,7 +160,9 @@ const Projetos: React.FC = () => {
         '+250% em leads qualificados',
         'ROI de 400% nas campanhas de tráfego pago',
         'Tempo de carregamento inferior a 1.5s'
-      ]
+      ],
+      link: '/projeto/imobiliaria-digital',
+      featured: true
     },
     {
       id: '5',
@@ -161,22 +185,24 @@ const Projetos: React.FC = () => {
     },
     {
       id: '6',
-      title: 'Advocacia & Consultoria',
-      subtitle: 'Site institucional para escritório jurídico',
+      title: 'Santos & Oliveira Advocacia',
+      subtitle: 'Site institucional para escritório jurídico premium',
       category: 'web',
       image: '/api/placeholder/800/600',
-      technologies: ['WordPress', 'Elementor', 'SEO', 'Google Ads'],
+      technologies: ['React', 'TypeScript', 'Bootstrap', 'Framer Motion'],
       duration: '8 dias',
       sector: 'Jurídico',
-      description: 'Website profissional para escritório de advocacia especializado em direito empresarial.',
-      challenge: 'Transmitir credibilidade e expertise legal, além de facilitar o contato com potenciais clientes.',
-      solution: 'Design elegante e profissional, área de artigos jurídicos, formulários de consulta e otimização para termos jurídicos.',
+      description: 'Website institucional completo para escritório de advocacia especializado em direito empresarial, trabalhista e tributário.',
+      challenge: 'Transmitir credibilidade e expertise legal, além de facilitar o contato com potenciais clientes empresariais.',
+      solution: 'Design elegante com paleta dourada, seção de equipe, blog jurídico, depoimentos com resultados e formulários otimizados.',
       results: [
         '+180% no número de consultas',
-        'Posicionamento orgânico para termos-chave',
+        'Posicionamento orgânico para termos jurídicos',
         '+300% no tráfego orgânico',
-        'Aumento de 150% na conversão'
-      ]
+        'Aumento de 150% na conversão de leads'
+      ],
+      link: '/projeto/advocacia-consultoria',
+      featured: true
     }
   ];
 
@@ -194,182 +220,374 @@ const Projetos: React.FC = () => {
     visible: {
       opacity: 1,
       transition: {
-        duration: 0.6,
-        staggerChildren: 0.1
+        duration: 0.8,
+        staggerChildren: 0.15
       }
     }
   };
 
   const cardVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 40, scale: 0.95 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6 }
+      scale: 1,
+      transition: { 
+        duration: 0.7,
+        ease: [0.4, 0, 0.2, 1]
+      }
+    }
+  };
+
+  const filterVariants = {
+    hidden: { opacity: 0, y: -20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" }
     }
   };
 
   return (
-    <div className="min-h-screen bg-light">
-      {/* Hero Section */}
-      <Container fluid className="bg-dark text-white py-5">
-        <Container>
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center py-5"
-          >
-            <h1 className="display-4 fw-bold mb-4">
-              Nossos <span className="text-primary">Projetos</span>
-            </h1>
-            <p className="lead mb-4 text-light opacity-75">
-              Conheça alguns dos projetos que desenvolvemos e os resultados incríveis que alcançamos
-            </p>
-            <p className="h5 text-warning">
-              Cada projeto é uma história de sucesso única
-            </p>
-          </motion.div>
-        </Container>
-      </Container>
+    <section className="min-h-screen flex flex-col items-center justify-start px-4 pt-16 md:pt-20 pb-20" 
+             style={{ background: `linear-gradient(135deg, ${CORES_PRIMARIAS.azulClaro} 0%, ${CORES_PRIMARIAS.brancoPuro} 50%, #F8F9FA 100%)` }}>
+      
+      {/* Logo */}
+      <motion.img 
+        src="/Arkon logo e nome.png" 
+        alt="Logo da Arkon" 
+        className="mb-12" 
+        style={{ maxWidth: 180, height: 'auto' }}
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      />
+      
+      {/* Hero Text */}
+      <motion.div 
+        className="max-w-5xl w-full text-center mb-16"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+      >
+        <h1 className="text-3xl md:text-4xl font-bold mb-6 leading-tight" 
+            style={{ color: CORES_PRIMARIAS.azulPrincipal, letterSpacing: '-0.025em' }}>
+          Portfólio de Projetos
+        </h1>
+        <p className="text-xl md:text-2xl max-w-4xl mx-auto mb-8 text-center leading-relaxed font-medium" 
+           style={{ color: CORES_PRIMARIAS.azulEscuro }}>
+          Conheça alguns dos projetos que desenvolvemos e os <span style={{ color: CORES_SECUNDARIAS.laranjaWarn }}>resultados incríveis</span> que alcançamos
+        </p>
+        <p className="text-lg max-w-3xl mx-auto text-center leading-relaxed" 
+           style={{ color: CORES_PRIMARIAS.cinzaNeutro }}>
+          Cada projeto é uma história de sucesso única, desenvolvida com foco em resultados mensuráveis
+        </p>
+      </motion.div>
 
-      {/* Filtros */}
-      <Container className="py-4">
-        <Row className="justify-content-center">
-          <Col lg={10}>
-            <Nav variant="pills" className="justify-content-center flex-wrap">
-              {categories.map(category => (
-                <Nav.Item key={category.id} className="mb-2">
-                  <Nav.Link
-                    active={selectedCategory === category.id}
-                    onClick={() => setSelectedCategory(category.id)}
-                    className="mx-1 d-flex align-items-center"
-                  >
-                    <span className="me-2">{category.icon}</span>
-                    {category.name}
-                  </Nav.Link>
-                </Nav.Item>
-              ))}
-            </Nav>
-          </Col>
-        </Row>
-      </Container>
-
-      {/* Projetos Grid */}
-      <Container className="pb-5">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
+      <div className="w-full flex flex-col items-center">
+        {/* Divisória Elegante */}
+        <motion.div 
+          className="w-full max-w-7xl"
+          style={{ marginBottom: '24px' }}
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 1, delay: 0.5 }}
         >
-          <Row className="g-4">
-            {filteredProjects.map((project) => (
-              <Col lg={4} md={6} key={project.id}>
-                <motion.div variants={cardVariants}>
-                  <Card className="h-100 shadow-lg border-0 project-card">
-                    {project.featured && (
-                      <div className="position-absolute top-0 end-0 m-3">
-                        <Badge bg="warning" className="d-flex align-items-center">
-                          <FaStar className="me-1" />
-                          Destaque
-                        </Badge>
-                      </div>
-                    )}
+          <div className="w-full h-[3px]" 
+               style={{ 
+                 background: `linear-gradient(90deg, transparent 0%, ${CORES_PRIMARIAS.azulPrincipal} 20%, ${CORES_SECUNDARIAS.laranjaWarn} 50%, ${CORES_PRIMARIAS.azulPrincipal} 80%, transparent 100%)` 
+               }} />
+        </motion.div>
 
-                    <div className="position-relative overflow-hidden">
-                      <Card.Img
-                        variant="top"
-                        src={project.image}
-                        style={{ height: '200px', objectFit: 'cover' }}
-                        className="project-image"
-                      />
-                      <div className="position-absolute top-0 start-0 m-3">
-                        <Badge bg="primary" className="d-flex align-items-center">
-                          {categories.find(c => c.id === project.category)?.icon}
-                          <span className="ms-1">
+        {/* Filtros Modernos */}
+        <Container className="w-full mb-20">
+          <Row className="justify-content-center">
+            <Col lg={12}>
+              <motion.div
+                variants={filterVariants}
+                initial="hidden"
+                animate="visible"
+                className="w-full rounded-3xl shadow-2xl border-0 p-8"
+                style={{ 
+                  background: GRADIENTES.cardGradient,
+                  backdropFilter: 'blur(10px)',
+                  border: `1px solid ${CORES_PRIMARIAS.azulClaro}40`,
+                  marginBottom: '24px'
+                }}
+              >
+                <h3 className="text-center mb-6 fw-bold" style={{ color: CORES_PRIMARIAS.azulEscuro }}>
+                  Filtrar por Categoria
+                </h3>
+                <Nav variant="pills" className="justify-content-center flex-wrap gap-3">
+                  {categories.map(category => (
+                    <Nav.Item key={category.id} className="mb-3">
+                      <Nav.Link
+                        active={selectedCategory === category.id}
+                        onClick={() => setSelectedCategory(category.id)}
+                        className="mx-2 d-flex align-items-center px-5 py-4 fw-semibold rounded-pill transition-all"
+                        style={{
+                          backgroundColor: selectedCategory === category.id ? category.color : 'transparent',
+                          borderColor: selectedCategory === category.id ? category.color : category.color,
+                          color: selectedCategory === category.id ? CORES_PRIMARIAS.brancoPuro : category.color,
+                          border: `2px solid ${category.color}`,
+                          transform: selectedCategory === category.id ? 'scale(1.05)' : 'scale(1)',
+                          boxShadow: selectedCategory === category.id ? `0 8px 25px ${category.color}25` : 'none',
+                          fontSize: '1rem'
+                        }}
+                      >
+                        <span className="me-3" style={{ fontSize: '1.2rem' }}>{category.icon}</span>
+                        {category.name}
+                      </Nav.Link>
+                    </Nav.Item>
+                  ))}
+                </Nav>
+              </motion.div>
+            </Col>
+          </Row>
+        </Container>
+
+        {/* Grid de Projetos */}
+        <Container className="w-full mb-20">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            <Row className="g-5">
+              {filteredProjects.map((project) => (
+                <Col lg={4} md={6} key={project.id}>
+                  <motion.div variants={cardVariants}>
+                    <div 
+                      className="position-relative overflow-hidden rounded-3xl shadow-lg border-0 h-100"
+                      style={{ 
+                        background: GRADIENTES.cardGradient,
+                        minHeight: '650px',
+                        transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                        border: `1px solid ${CORES_PRIMARIAS.azulClaro}30`
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = 'translateY(-15px) scale(1.02)';
+                        e.currentTarget.style.boxShadow = `0 30px 60px ${CORES_PRIMARIAS.azulPrincipal}20`;
+                        e.currentTarget.style.background = GRADIENTES.hoverGradient;
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                        e.currentTarget.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
+                        e.currentTarget.style.background = GRADIENTES.cardGradient;
+                      }}
+                    >
+                      {/* Badge de Destaque */}
+                      {project.featured && (
+                        <div className="position-absolute top-0 end-0 m-4" style={{ zIndex: 10 }}>
+                          <Badge className="d-flex align-items-center px-4 py-3 rounded-pill fw-bold"
+                                 style={{ 
+                                   backgroundColor: CORES_SECUNDARIAS.laranjaWarn,
+                                   color: CORES_PRIMARIAS.brancoPuro,
+                                   fontSize: '0.9rem'
+                                 }}>
+                            <FaStar className="me-2" />
+                            Projeto Destaque
+                          </Badge>
+                        </div>
+                      )}
+
+                      {/* Imagem do Projeto */}
+                      <div className="position-relative overflow-hidden">
+                        <img
+                          src={project.image}
+                          alt={project.title}
+                          style={{ height: '260px', objectFit: 'cover', width: '100%' }}
+                          className="transition-transform duration-500"
+                        />
+                        
+                        {/* Badge de Categoria */}
+                        <div className="position-absolute top-0 start-0 m-4">
+                          <Badge className="d-flex align-items-center px-4 py-3 rounded-pill fw-semibold"
+                                 style={{ 
+                                   backgroundColor: categories.find(c => c.id === project.category)?.color || CORES_PRIMARIAS.azulPrincipal,
+                                   color: CORES_PRIMARIAS.brancoPuro,
+                                   fontSize: '0.85rem'
+                                 }}>
+                            <span className="me-2">{categories.find(c => c.id === project.category)?.icon}</span>
                             {categories.find(c => c.id === project.category)?.name}
-                          </span>
-                        </Badge>
-                      </div>
-                      <div className="project-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
-                        <Button
-                          variant="light"
-                          className="fw-bold"
-                          onClick={() => handleProjectClick(project)}
-                        >
-                          <FaEye className="me-2" />
-                          Ver Detalhes
-                        </Button>
-                      </div>
-                    </div>
-
-                    <Card.Body className="p-4">
-                      <h5 className="fw-bold text-dark mb-2">{project.title}</h5>
-                      <p className="text-muted mb-3 leading-relaxed">{project.subtitle}</p>
-
-                      <div className="mb-3">
-                        <div className="d-flex align-items-center mb-2">
-                          <FaClock className="text-primary me-2" />
-                          <small className="text-muted">
-                            <strong>Prazo:</strong> {project.duration}
-                          </small>
+                          </Badge>
                         </div>
-                        <div className="d-flex align-items-center">
-                          <FaGlobe className="text-primary me-2" />
-                          <small className="text-muted">
-                            <strong>Setor:</strong> {project.sector}
-                          </small>
+
+                        {/* Overlay de Hover */}
+                        <div className="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center opacity-0 hover-overlay"
+                             style={{
+                               background: `linear-gradient(135deg, ${CORES_PRIMARIAS.azulPrincipal}90, ${CORES_SECUNDARIAS.laranjaWarn}70)`,
+                               transition: 'opacity 0.3s ease'
+                             }}>
+                          <Button
+                            variant="light"
+                            className="fw-bold px-5 py-3 rounded-pill shadow-lg"
+                            style={{ 
+                              border: 'none',
+                              color: CORES_PRIMARIAS.azulPrincipal,
+                              fontSize: '1.1rem'
+                            }}
+                          >
+                            <FaEye className="me-2" />
+                            {project.link ? 'Visitar Projeto' : 'Ver Detalhes'}
+                          </Button>
                         </div>
                       </div>
 
-                      <div className="mb-3">
-                        <h6 className="fw-bold text-dark mb-2">Tecnologias:</h6>
-                        <div className="d-flex flex-wrap gap-1">
-                          {project.technologies.slice(0, 3).map((tech, index) => (
-                            <Badge key={index} bg="light" text="dark" className="border">
-                              {tech}
-                            </Badge>
-                          ))}
-                          {project.technologies.length > 3 && (
-                            <Badge bg="secondary">
-                              +{project.technologies.length - 3} mais
-                            </Badge>
+                      {/* Conteúdo do Card */}
+                      <div className="p-5 d-flex flex-column flex-grow-1">
+                        <h4 className="fw-bold mb-3" 
+                            style={{ color: CORES_PRIMARIAS.azulEscuro, fontSize: '1.4rem' }}>
+                          {project.title}
+                        </h4>
+                        <p className="mb-4" 
+                           style={{ color: CORES_PRIMARIAS.cinzaNeutro, lineHeight: 1.6, fontSize: '1rem' }}>
+                          {project.subtitle}
+                        </p>
+
+                        {/* Informações do Projeto */}
+                        <div className="mb-4">
+                          <Row className="g-3">
+                            <Col md={6}>
+                              <div className="d-flex align-items-center">
+                                <FaClock style={{ color: CORES_SECUNDARIAS.laranjaWarn }} className="me-2" />
+                                <small className="fw-semibold" style={{ color: CORES_PRIMARIAS.azulEscuro }}>
+                                  {project.duration}
+                                </small>
+                              </div>
+                            </Col>
+                            <Col md={6}>
+                              <div className="d-flex align-items-center">
+                                <FaGlobe style={{ color: CORES_SECUNDARIAS.verdeForest }} className="me-2" />
+                                <small className="fw-semibold" style={{ color: CORES_PRIMARIAS.azulEscuro }}>
+                                  {project.sector}
+                                </small>
+                              </div>
+                            </Col>
+                          </Row>
+                        </div>
+
+                        {/* Tecnologias */}
+                        <div className="mb-5">
+                          <h6 className="fw-bold mb-3" style={{ color: CORES_PRIMARIAS.azulEscuro, fontSize: '1rem' }}>
+                            Tecnologias:
+                          </h6>
+                          <div className="d-flex flex-wrap gap-2">
+                            {project.technologies.slice(0, 3).map((tech, index) => (
+                              <Badge key={index} className="px-3 py-2"
+                                     style={{ 
+                                       backgroundColor: '#10B981',
+                                       color: CORES_PRIMARIAS.brancoPuro,
+                                       fontSize: '0.85rem',
+                                       fontWeight: '600',
+                                       borderRadius: '12px'
+                                     }}>
+                                {tech}
+                              </Badge>
+                            ))}
+                            {project.technologies.length > 3 && (
+                              <Badge className="px-3 py-2"
+                                     style={{ 
+                                       backgroundColor: '#F59E0B',
+                                       color: CORES_PRIMARIAS.brancoPuro,
+                                       fontSize: '0.85rem',
+                                       fontWeight: '600',
+                                       borderRadius: '12px'
+                                     }}>
+                                +{project.technologies.length - 3} mais
+                              </Badge>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Botões de Ação */}
+                        <div className="mt-auto d-flex flex-column gap-3">
+                          <Button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleProjectClick(project);
+                            }}
+                            className="w-100 fw-bold py-3 rounded-pill border-0"
+                            style={{ 
+                              background: 'linear-gradient(135deg, #3B82F6, #1E40AF)',
+                              color: CORES_PRIMARIAS.brancoPuro,
+                              fontSize: '1rem'
+                            }}
+                          >
+                            <FaEye className="me-2" />
+                            Ver Detalhes
+                          </Button>
+                          
+                          {project.link && (
+                            <Button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                if (project.link?.startsWith('/')) {
+                                  window.location.href = project.link;
+                                } else {
+                                  window.open(project.link, '_blank');
+                                }
+                              }}
+                              variant="outline-primary"
+                              className="w-100 fw-bold py-3 rounded-pill"
+                              style={{ 
+                                borderColor: '#10B981',
+                                color: '#10B981',
+                                fontSize: '1rem'
+                              }}
+                            >
+                              <FaExternalLinkAlt className="me-2" />
+                              Ver Case Completo
+                            </Button>
                           )}
                         </div>
                       </div>
-                    </Card.Body>
+                    </div>
+                  </motion.div>
+                </Col>
+              ))}
+            </Row>
+          </motion.div>
 
-                    <Card.Footer className="bg-transparent border-0 p-4 pt-0">
-                      <Button
-                        variant="outline-primary"
-                        className="w-100 fw-bold"
-                        onClick={() => handleProjectClick(project)}
-                      >
-                        Ver Case Completo
-                        <FaArrowRight className="ms-2" />
-                      </Button>
-                    </Card.Footer>
-                  </Card>
-                </motion.div>
-              </Col>
-            ))}
-          </Row>
+          {filteredProjects.length === 0 && (
+            <motion.div 
+              className="text-center py-5"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6 }}
+            >
+              <h4 style={{ color: CORES_PRIMARIAS.azulPrincipal }}>
+                Nenhum projeto encontrado nesta categoria
+              </h4>
+              <p style={{ color: CORES_PRIMARIAS.cinzaNeutro }}>
+                Experimente filtrar por outra categoria para ver mais projetos
+              </p>
+            </motion.div>
+          )}
+        </Container>
+
+        {/* Divisória Final */}
+        <motion.div 
+          className="w-full max-w-7xl mb-8"
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 1, delay: 1.2 }}
+        >
+          <div className="w-full h-[2px]" 
+               style={{ 
+                 background: `linear-gradient(90deg, transparent 0%, ${CORES_PRIMARIAS.azulPrincipal} 50%, transparent 100%)` 
+               }} />
         </motion.div>
-
-        {filteredProjects.length === 0 && (
-          <div className="text-center py-5">
-            <h4 className="text-muted">Nenhum projeto encontrado nesta categoria</h4>
-            <p className="text-muted">Experimente filtrar por outra categoria</p>
-          </div>
-        )}
-      </Container>
+      </div>
 
       {/* Modal de Detalhes do Projeto */}
       <Modal show={showModal} onHide={() => setShowModal(false)} size="lg" centered>
         {selectedProject && (
           <>
-            <Modal.Header closeButton className="border-0">
-              <Modal.Title className="fw-bold">{selectedProject.title}</Modal.Title>
+            <Modal.Header closeButton className="border-0" style={{ backgroundColor: CORES_PRIMARIAS.azulClaro }}>
+              <Modal.Title className="fw-bold" style={{ color: CORES_PRIMARIAS.azulEscuro }}>
+                {selectedProject.title}
+              </Modal.Title>
             </Modal.Header>
             <Modal.Body className="p-4">
               <Row>
@@ -377,26 +595,32 @@ const Projetos: React.FC = () => {
                   <img
                     src={selectedProject.image}
                     alt={selectedProject.title}
-                    className="img-fluid rounded shadow-sm mb-4"
+                    className="img-fluid rounded-3 shadow-sm mb-4"
                   />
                 </Col>
                 <Col md={6}>
                   <div className="mb-4">
-                    <h5 className="fw-bold text-primary mb-3">Informações do Projeto</h5>
+                    <h5 className="fw-bold mb-3" style={{ color: CORES_PRIMARIAS.azulPrincipal }}>
+                      Informações do Projeto
+                    </h5>
                     <div className="mb-2">
-                      <strong>Categoria:</strong> {categories.find(c => c.id === selectedProject.category)?.name}
+                      <strong style={{ color: CORES_PRIMARIAS.azulEscuro }}>Categoria:</strong> {categories.find(c => c.id === selectedProject.category)?.name}
                     </div>
                     <div className="mb-2">
-                      <strong>Setor:</strong> {selectedProject.sector}
+                      <strong style={{ color: CORES_PRIMARIAS.azulEscuro }}>Setor:</strong> {selectedProject.sector}
                     </div>
                     <div className="mb-2">
-                      <strong>Duração:</strong> {selectedProject.duration}
+                      <strong style={{ color: CORES_PRIMARIAS.azulEscuro }}>Duração:</strong> {selectedProject.duration}
                     </div>
                     <div className="mb-3">
-                      <strong>Tecnologias:</strong>
+                      <strong style={{ color: CORES_PRIMARIAS.azulEscuro }}>Tecnologias:</strong>
                       <div className="mt-2">
                         {selectedProject.technologies.map((tech, index) => (
-                          <Badge key={index} bg="primary" className="me-1 mb-1">
+                          <Badge key={index} className="me-1 mb-1 px-2 py-1"
+                                 style={{ 
+                                   backgroundColor: CORES_PRIMARIAS.azulPrincipal,
+                                   color: CORES_PRIMARIAS.brancoPuro
+                                 }}>
                             {tech}
                           </Badge>
                         ))}
@@ -408,10 +632,11 @@ const Projetos: React.FC = () => {
                         size="sm"
                         href={selectedProject.link}
                         target="_blank"
-                        className="fw-bold"
+                        className="fw-bold rounded-pill"
+                        style={{ borderColor: CORES_PRIMARIAS.azulPrincipal, color: CORES_PRIMARIAS.azulPrincipal }}
                       >
                         <FaExternalLinkAlt className="me-2" />
-                        Visitar Site
+                        Visitar Projeto
                       </Button>
                     )}
                   </div>
@@ -419,42 +644,62 @@ const Projetos: React.FC = () => {
               </Row>
 
               <div className="mb-4">
-                <h5 className="fw-bold text-primary mb-3">Descrição do Projeto</h5>
-                <p className="leading-relaxed">{selectedProject.description}</p>
+                <h5 className="fw-bold mb-3" style={{ color: CORES_PRIMARIAS.azulPrincipal }}>
+                  Descrição do Projeto
+                </h5>
+                <p className="leading-relaxed" style={{ color: CORES_PRIMARIAS.azulEscuro }}>
+                  {selectedProject.description}
+                </p>
               </div>
 
               <div className="mb-4">
-                <h5 className="fw-bold text-primary mb-3">Desafio</h5>
-                <p className="leading-relaxed">{selectedProject.challenge}</p>
+                <h5 className="fw-bold mb-3" style={{ color: CORES_PRIMARIAS.azulPrincipal }}>
+                  Desafio
+                </h5>
+                <p className="leading-relaxed" style={{ color: CORES_PRIMARIAS.azulEscuro }}>
+                  {selectedProject.challenge}
+                </p>
               </div>
 
               <div className="mb-4">
-                <h5 className="fw-bold text-primary mb-3">Solução Desenvolvida</h5>
-                <p className="leading-relaxed">{selectedProject.solution}</p>
+                <h5 className="fw-bold mb-3" style={{ color: CORES_PRIMARIAS.azulPrincipal }}>
+                  Solução Desenvolvida
+                </h5>
+                <p className="leading-relaxed" style={{ color: CORES_PRIMARIAS.azulEscuro }}>
+                  {selectedProject.solution}
+                </p>
               </div>
 
               <div className="mb-4">
-                <h5 className="fw-bold text-primary mb-3">Resultados Alcançados</h5>
+                <h5 className="fw-bold mb-3" style={{ color: CORES_PRIMARIAS.azulPrincipal }}>
+                  Resultados Alcançados
+                </h5>
                 <ul className="list-unstyled">
                   {selectedProject.results.map((result, index) => (
                     <li key={index} className="mb-2 d-flex align-items-start">
-                      <FaStar className="text-warning me-2 mt-1" />
-                      <span>{result}</span>
+                      <FaStar style={{ color: CORES_SECUNDARIAS.laranjaWarn }} className="me-2 mt-1" />
+                      <span style={{ color: CORES_PRIMARIAS.azulEscuro }}>{result}</span>
                     </li>
                   ))}
                 </ul>
               </div>
 
               {selectedProject.testimonial && (
-                <div className="bg-light rounded p-4">
-                  <h5 className="fw-bold text-primary mb-3">Depoimento do Cliente</h5>
+                <div className="rounded-3 p-4" style={{ backgroundColor: CORES_PRIMARIAS.azulClaro }}>
+                  <h5 className="fw-bold mb-3" style={{ color: CORES_PRIMARIAS.azulPrincipal }}>
+                    Depoimento do Cliente
+                  </h5>
                   <blockquote className="mb-3">
-                    <FaQuoteLeft className="text-muted me-2" />
-                    <em className="leading-relaxed">"{selectedProject.testimonial.text}"</em>
+                    <FaQuoteLeft style={{ color: CORES_PRIMARIAS.cinzaNeutro }} className="me-2" />
+                    <em className="leading-relaxed" style={{ color: CORES_PRIMARIAS.azulEscuro }}>
+                      "{selectedProject.testimonial.text}"
+                    </em>
                   </blockquote>
                   <div className="text-end">
-                    <strong>{selectedProject.testimonial.author}</strong><br />
-                    <small className="text-muted">
+                    <strong style={{ color: CORES_PRIMARIAS.azulEscuro }}>
+                      {selectedProject.testimonial.author}
+                    </strong><br />
+                    <small style={{ color: CORES_PRIMARIAS.cinzaNeutro }}>
                       {selectedProject.testimonial.position} - {selectedProject.testimonial.company}
                     </small>
                   </div>
@@ -464,7 +709,52 @@ const Projetos: React.FC = () => {
           </>
         )}
       </Modal>
-    </div>
+
+      <style>{`
+        .hover-overlay {
+          transition: opacity 0.3s ease !important;
+        }
+        .hover-overlay:hover {
+          opacity: 1 !important;
+        }
+        .project-image {
+          transition: transform 0.3s ease;
+        }
+        .project-image:hover {
+          transform: scale(1.05);
+        }
+        
+        /* Animações customizadas */
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        .animate-fade-in-up {
+          animation: fadeInUp 0.6s ease-out forwards;
+        }
+        
+        /* Scroll suave */
+        html {
+          scroll-behavior: smooth;
+        }
+        
+        /* Hover effects personalizados */
+        .nav-link {
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        }
+        
+        .nav-link:hover {
+          transform: translateY(-2px) !important;
+        }
+      `}</style>
+    </section>
   );
 };
 

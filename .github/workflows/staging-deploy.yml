@@ -1,0 +1,43 @@
+name: Deploy to Staging
+
+on:
+  push:
+    branches: [ staging ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout código
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: nathaniel-portfolio/package-lock.json
+        
+    - name: Instalar dependências
+      run: |
+        cd nathaniel-portfolio
+        npm ci
+        
+    - name: Build do projeto
+      run: |
+        cd nathaniel-portfolio
+        npm run build
+        
+    - name: Setup Firebase CLI
+      uses: firebase-tools-action@v1.0.0
+      with:
+        token: ${{ secrets.FIREBASE_TOKEN }}
+        
+    - name: Deploy para Staging
+      run: |
+        cd nathaniel-portfolio
+        firebase hosting:channel:deploy staging --expires 30d
+      env:
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }} 
